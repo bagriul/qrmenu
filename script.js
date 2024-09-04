@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const categoriesContainer = document.getElementById('categories');
     const dishesContainer = document.getElementById('dishes-container');
     const apiLink = 'https://rnhtb-176-111-183-141.a.free.pinggy.link'
-    const bearerToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcyNTQ2MTY5MSwianRpIjoiNTA4YjliMWUtMzQ1NC00YmRiLWFjODEtZjNmZTM1MzA3Nzk0IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InRlc3RAZ21haWwuY29tIiwibmJmIjoxNzI1NDYxNjkxLCJjc3JmIjoiNTAzNGNlNDgtZjA1Yi00NWE4LTg3ZjUtNTcwNDI3MjkwMDY3IiwiZXhwIjoxNzI1NDYyNTkxfQ.z5k63ePKdLDlaz4oXZ4Bz11M0ErokOTkHmih-9xNlAE';  // Replace with your actual Bearer token
+    const bearerToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcyNTQ2NDA1NywianRpIjoiOTQyMDExZmYtMmFiYy00MWYwLWI0YmMtOThhOWNjZGIxNmFhIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InRlc3RAZ21haWwuY29tIiwibmJmIjoxNzI1NDY0MDU3LCJjc3JmIjoiNjk0MTE2ZjQtOTA1ZS00YWUwLTgwZjAtMmExZWI3MzkyZWI1IiwiZXhwIjoxNzI1NDY0OTU3fQ.ePMfhM1F-xQP0RRIr98IH_q-EmRTTT_Xas_4gAiiFOg';  // Replace with your actual Bearer token
 
     // Modal elements
     const modal = document.getElementById('dish-modal');
