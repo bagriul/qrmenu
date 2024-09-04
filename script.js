@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return response.json();
         })
         .catch(error => {
-            console.error('Error fetching categories:', error);
+            console.error('Error fetching categories:', error, response.json);
         })
         .then(data => {
             data.categories.forEach((category, index) => {
