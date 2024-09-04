@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const categoriesContainer = document.getElementById('categories');
     const dishesContainer = document.getElementById('dishes-container');
+    const apiLink = 'http://mesctsmvfd.eu.loclx.io'
     const bearerToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcyNTQ2MTY5MSwianRpIjoiNTA4YjliMWUtMzQ1NC00YmRiLWFjODEtZjNmZTM1MzA3Nzk0IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InRlc3RAZ21haWwuY29tIiwibmJmIjoxNzI1NDYxNjkxLCJjc3JmIjoiNTAzNGNlNDgtZjA1Yi00NWE4LTg3ZjUtNTcwNDI3MjkwMDY3IiwiZXhwIjoxNzI1NDYyNTkxfQ.z5k63ePKdLDlaz4oXZ4Bz11M0ErokOTkHmih-9xNlAE';  // Replace with your actual Bearer token
 
     // Modal elements
@@ -16,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Fetch and display categories
-    fetch('http://192.168.1.12:8000/categories', {
+    fetch(`${apiLink}/categories`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${bearerToken}`,
@@ -52,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to fetch and display dishes based on the selected category
     function fetchDishes(categoryName) {
-        fetch('http://192.168.1.12:8000/dishes', {
+        fetch(`${apiLink}/dishes`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${bearerToken}`,
