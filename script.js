@@ -25,32 +25,36 @@ document.addEventListener('DOMContentLoaded', () => {
             'Content-Type': 'application/json'
         }
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        data.categories.forEach((category, index) => {
-            const categoryDiv = document.createElement('div');
-            categoryDiv.classList.add('category-item');
-            if (index === 0) {
-                categoryDiv.classList.add('active');
-                fetchDishes(category.name);  // Fetch dishes for the first category initially
+        .then(response => {
+            if (!response.ok) {
+                // Throw a more specific error based on the response status code
+                throw new Error(`Network response was not ok. Status code: ${response.status}`);
             }
-            categoryDiv.textContent = category.name;
-            categoryDiv.addEventListener('click', () => {
-                document.querySelectorAll('.category-item').forEach(item => {
-                    item.classList.remove('active');
+            return response.json();
+        })
+        .catch(error => {
+            console.error('Error fetching categories:', error);
+        })
+        .then(data => {
+            data.categories.forEach((category, index) => {
+                const categoryDiv = document.createElement('div');
+                categoryDiv.classList.add('category-item');
+                if (index === 0) {
+                    categoryDiv.classList.add('active');
+                    fetchDishes(category.name);  // Fetch dishes for the first category initially
+                }
+                categoryDiv.textContent = category.name;
+                categoryDiv.addEventListener('click', () => {
+                    document.querySelectorAll('.category-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    categoryDiv.classList.add('active');
+                    fetchDishes(category.name);  // Fetch dishes for the selected category
                 });
-                categoryDiv.classList.add('active');
-                fetchDishes(category.name);  // Fetch dishes for the selected category
+                categoriesContainer.appendChild(categoryDiv);
             });
-            categoriesContainer.appendChild(categoryDiv);
-        });
-    })
-    .catch(error => console.error('Error fetching categories:', error));
+        })
+        .catch(error => console.error('Error fetching categories:', error));
 
     // Function to fetch and display dishes based on the selected category
     function fetchDishes(categoryName) {
@@ -61,52 +65,52 @@ document.addEventListener('DOMContentLoaded', () => {
                 'Content-Type': 'application/json'
             }
         })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            dishesContainer.innerHTML = '';  // Clear previous dishes
-            const filteredDishes = data.dishes.filter(dish => dish.category === categoryName);
-            filteredDishes.forEach(dish => {
-                const dishCard = document.createElement('div');
-                dishCard.classList.add('dish-card');
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                dishesContainer.innerHTML = '';  // Clear previous dishes
+                const filteredDishes = data.dishes.filter(dish => dish.category === categoryName);
+                filteredDishes.forEach(dish => {
+                    const dishCard = document.createElement('div');
+                    dishCard.classList.add('dish-card');
 
-                const dishImg = document.createElement('img');
-                dishImg.src = dish.picture_url;
-                dishCard.appendChild(dishImg);
+                    const dishImg = document.createElement('img');
+                    dishImg.src = dish.picture_url;
+                    dishCard.appendChild(dishImg);
 
-                const dishInfo = document.createElement('div');
-                dishInfo.classList.add('dish-info');
+                    const dishInfo = document.createElement('div');
+                    dishInfo.classList.add('dish-info');
 
-                const dishName = document.createElement('h3');
-                dishName.textContent = dish.name;
-                dishInfo.appendChild(dishName);
+                    const dishName = document.createElement('h3');
+                    dishName.textContent = dish.name;
+                    dishInfo.appendChild(dishName);
 
-                const dishPrice = document.createElement('div');
-                dishPrice.classList.add('price');
-                dishPrice.textContent = `${dish.price} ₪`;
-                dishInfo.appendChild(dishPrice);
+                    const dishPrice = document.createElement('div');
+                    dishPrice.classList.add('price');
+                    dishPrice.textContent = `${dish.price} ₪`;
+                    dishInfo.appendChild(dishPrice);
 
-                const dishDescription = document.createElement('p');
-                dishDescription.textContent = dish.description;
-                dishInfo.appendChild(dishDescription);
+                    const dishDescription = document.createElement('p');
+                    dishDescription.textContent = dish.description;
+                    dishInfo.appendChild(dishDescription);
 
-                dishCard.appendChild(dishInfo);
-                dishesContainer.appendChild(dishCard);
+                    dishCard.appendChild(dishInfo);
+                    dishesContainer.appendChild(dishCard);
 
-                // Show modal on dish click
-                dishCard.addEventListener('click', () => {
-                    modal.style.display = 'block';
-                    modalDishImg.src = dish.picture_url;
-                    modalDishName.textContent = dish.name;
-                    modalDishPrice.textContent = `${dish.price} ₪`;
-                    modalDishDescription.textContent = dish.description;
+                    // Show modal on dish click
+                    dishCard.addEventListener('click', () => {
+                        modal.style.display = 'block';
+                        modalDishImg.src = dish.picture_url;
+                        modalDishName.textContent = dish.name;
+                        modalDishPrice.textContent = `${dish.price} ₪`;
+                        modalDishDescription.textContent = dish.description;
+                    });
                 });
-            });
-        })
-        .catch(error => console.error('Error fetching dishes:', error));
+            })
+            .catch(error => console.error('Error fetching dishes:', error));
     }
 });
